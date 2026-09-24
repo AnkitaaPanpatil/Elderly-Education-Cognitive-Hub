@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en" class="text-[16px]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SilverBloom — Elderly Education & Cognitive Wellness Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#fdfbf7',
+                            100: '#f7f4ec',
+                            200: '#eee7d8',
+                            300: '#ded1b8'
+                        },
+                        sage: {
+                            50: '#f2f7f4',
+                            100: '#e1ede6',
+                            500: '#387c5e',
+                            600: '#2d674e',
+                            700: '#23523e',
+                            800: '#1a3e2f',
+                            900: '#122c22'
+                        },
+                        warmAmber: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Lexend', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        serif: ['Lora', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Accessible Google Fonts: Lexend (proven for reading clarity) and Lora (classic elegance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <style>
+        /* High contrast focus ring for motor & vision accessibility */
+        *:focus-visible {
+            outline: 3.5px solid #d97706 !important;
+            outline-offset: 3px !important;
+        }
+
+        /* Fluid Senior Font Scaling Classes */
+        html.font-size-standard { font-size: 16px; }
+        html.font-size-large { font-size: 19px; }
+        html.font-size-xlarge { font-size: 22px; }
+
+        /* Theme Styles */
+        body.theme-cozy {
+            background-color: #fbf9f4;
+            color: #1e293b;
+        }
+        body.theme-highcontrast {
+            background-color: #05080c;
+            color: #ffffff;
+        }
+        body.theme-highcontrast .contrast-card {
+            background-color: #111827;
+            border-color: #fbbf24;
+            color: #ffffff;
+        }
+        body.theme-highcontrast .contrast-subtext {
+            color: #e5e7eb !important;
+        }
+        body.theme-highcontrast .contrast-btn {
+            background-color: #fbbf24 !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+        }
+
+        /* Large touch-friendly scrollbars */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Gentle Card Hover & Pulsing Animations */
+        .gentle-tap {
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .gentle-tap:active {
+            transform: scale(0.98);
+        }
+
+        /* Memory Card Flip Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="theme-cozy font-sans antialiased min-h-screen flex flex-col selection:bg-amber-200 selection:text-slate-900 transition-colors duration-300">
+
+    <!-- Accessibility Floating Top Bar -->
+    <aside aria-label="Accessibility settings" class="bg-amber-100 dark:bg-amber-950/60 border-b-2 border-amber-300 dark:border-amber-700 px-4 py-2.5 text-slate-800 dark:text-amber-100">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-sm">
+            <div class="flex items-center gap-2 font-medium">
+                <i class="fa-solid fa-universal-access text-amber-700 dark:text-amber-400 text-lg" aria-hidden="true"></i>
+                <span class="font-bold">Senior Reading Controls:</span>
+            </div>
+
+            <!-- Controls: Text Resizing & Themes -->
+            <div class="flex items-center flex-wrap gap-2">
+                <!-- Text Size Adjuster -->
+                <div class="flex items-center bg-white/90 dark:bg-slate-900 rounded-xl p-1 border border-amber-300 dark:border-amber-700 shadow-sm" role="group" aria-label="Text size options">
+                    <span class="text-xs font-semibold px-2 text-slate-600 dark:text-slate-300">Text Size:</span>
+                    <button onclick="setFontScale('standard')" id="btnFontStandard" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950" title="Regular Size">
+                        A
+                    </button>
+                    <button onclick="setFontScale('large')" id="btnFontLarge" class="px-3 py-1.5 rounded-lg text-sm font-bold transition hover:bg-amber-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100" title="Large Size (Recommended)">
+                        A+
+                    </button>
+                    <button onclick="setFontScale('xlarge')" id="btnFontXLarge" class="px-3 py-1.5 rounded-lg text-base font-extrabold transition hover:bg-amber-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100" title="Extra Large Size">
+                        A++
+                    </button>
+                </div>
+
+                <!-- Theme / Contrast Mode Toggle -->
+                <div class="flex items-center bg-white/90 dark:bg-slate-900 rounded-xl p-1 border border-amber-300 dark:border-amber-700 shadow-sm">
+                    <button onclick="setTheme('cozy')" id="btnThemeCozy" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center gap-1.5">
+                        <i class="fa-solid fa-mug-hot"></i>
+                        <span>Warm Paper</span>
+                    </button>
+                    <button onclick="setTheme('highcontrast')" id="btnThemeContrast" class="px-3 py-1.5 rounded-lg text-xs font-bold transition hover:bg-amber-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-half-stroke"></i>
+                        <span>High Contrast</span>
+                    </button>
+                </div>
+
+                <!-- Global Audio Reader Control -->
+                <button onclick="toggleGlobalSpeechReader()" id="btnGlobalReader" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white shadow flex items-center gap-2 transition" aria-label="Listen to page summary">
+                    <i class="fa-solid fa-volume-high text-sm" id="globalSpeakerIcon"></i>
+                    <span id="globalSpeakerText">Read Out Loud</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Brand Logo with Warm Gentle Icon -->
+            <div class="flex items-center gap-3.5 cursor-pointer" onclick="switchActiveTab('learning')">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-sage-600 flex items-center justify-center text-slate-900 shadow-md text-2xl">
+                    <i class="fa-solid fa-seedling"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-serif tracking-tight flex items-center gap-2">
+                        SilverBloom
+                        <span class="text-xs uppercase tracking-widest font-sans bg-sage-100 dark:bg-sage-900/60 text-sage-800 dark:text-sage-300 font-bold px-2 py-0.5 rounded-full border border-sage-300 dark:border-sage-700">Academy</span>
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">Lifelong Learning, Joyful Mind & Social Circle</p>
+                </div>
+            </div>
+
+            <!-- Primary Large Navigation Buttons -->
+            <nav class="flex items-center gap-2 sm:gap-3 flex-wrap" aria-label="Main Navigation">
+                <button onclick="switchActiveTab('learning')" id="tabBtnLearning" class="nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-sage-600 text-white shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-book-open-reader text-lg"></i>
+                    <span>Learning Lessons</span>
+                </button>
+                <button onclick="switchActiveTab('cognitive')" id="tabBtnCognitive" class="nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 flex items-center gap-2">
+                    <i class="fa-solid fa-brain text-lg text-amber-600"></i>
+                    <span>Brain Gym</span>
+                </button>
+                <button onclick="switchActiveTab('community')" id="tabBtnCommunity" class="nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 flex items-center gap-2">
+                    <i class="fa-solid fa-people-roof text-lg text-emerald-600"></i>
+                    <span>Senior Circle</span>
+                </button>
+                <button onclick="switchActiveTab('companion')" id="tabBtnCompanion" class="nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 flex items-center gap-2">
+                    <i class="fa-solid fa-comments text-lg text-amber-500"></i>
+                    <span>Ask Sage (AI Friend)</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+        
+        <!-- Welcome Banner & Daily Check-in Card -->
+        <section class="contrast-card bg-gradient-to-r from-amber-50 via-warmAmber-50 to-sage-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border-2 border-amber-200 dark:border-amber-800 rounded-3xl p-5 sm:p-7 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                
+                <div class="space-y-2 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 px-3 py-1 rounded-full text-xs sm:text-sm font-bold">
+                        <i class="fa-regular fa-sun text-amber-600 animate-spin" style="animation-duration: 15s;"></i>
+                        <span id="currentDateDisplay">Welcome back to your happy space!</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-serif">
+                        Good morning, Arthur! 🌸
+                    </h2>
+                    <p class="contrast-subtext text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                        Every day is an opportunity to learn something wonderful, keep your memory sharp, and chat with dear friends. What would you like to explore today?
+                    </p>
+                </div>
+
+                <!-- Daily Mindful Score & Gentle Streak -->
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-4 bg-white/95 dark:bg-slate-900/90 p-4 rounded-2xl border border-amber-200 dark:border-slate-700 shadow-inner">
+                    <div class="text-center px-3 border-r border-slate-200 dark:border-slate-700">
+                        <span class="block text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400" id="statCompletedLessons">4</span>
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Lessons Completed</span>
+                    </div>
+                    <div class="text-center px-3 border-r border-slate-200 dark:border-slate-700">
+                        <span class="block text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400" id="statBrainScore">180</span>
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Brain Bloom Pts</span>
+                    </div>
+                    <div class="text-center px-2">
+                        <span class="block text-2xl sm:text-3xl font-black text-sage-600 dark:text-sage-400">5 <i class="fa-solid fa-award text-amber-500 text-xl"></i></span>
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Daily Streak</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="sectionLearning" class="space-y-6">
+            
+            <!-- Category Filter Pills -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white font-serif flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-sage-600"></i>
+                        Lifelong Learning Library
+                    </h3>
+                    <p class="contrast-subtext text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+                        Bite-sized, jargon-free lessons with large fonts and audio narration.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2 overflow-x-auto pb-1" role="tablist">
+                    <button onclick="filterLessons('all')" id="btnFilterAll" class="filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-sage-600 text-white shadow">
+                        All Subjects
+                    </button>
+                    <button onclick="filterLessons('digital')" id="btnFilterDigital" class="filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200">
+                        📱 Digital & Phones
+                    </button>
+                    <button onclick="filterLessons('safety')" id="btnFilterSafety" class="filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200">
+                        🛡️ Scam & Safety
+                    </button>
+                    <button onclick="filterLessons('wellness')" id="btnFilterWellness" class="filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200">
+                        🌿 Health & Joy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lessons Grid -->
+            <div id="lessonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Lessons dynamically populated by JavaScript -->
+            </div>
+
+        </section>
+
+        <section id="sectionCognitive" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white font-serif flex items-center gap-2">
+                        <i class="fa-solid fa-puzzle-piece text-amber-500"></i>
+                        Cognitive Brain Gym & Memory Lounge
+                    </h3>
+                    <p class="contrast-subtext text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+                        Calm, pressure-free brain workouts designed to sharpen memory, pattern recognition, and focus.
+                    </p>
+                </div>
+
+                <!-- Difficulty & Reset controls -->
+                <div class="flex items-center gap-2">
+                    <button onclick="initMemoryGame()" class="contrast-btn px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-xl text-sm shadow transition flex items-center gap-2">
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>New Memory Board</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cognitive Exercises Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Left: Interactive Memory Card Match (8 Cols) -->
+                <div class="lg:col-span-8 contrast-card bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border-2 border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-seedling text-emerald-600"></i>
+                                Nature & Garden Memory Match
+                            </h4>
+                            <p class="contrast-subtext text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                                Click two cards to reveal them. Match all pairs at your own relaxing pace!
+                            </p>
+                        </div>
+                        <div class="bg-amber-100 dark:bg-amber-950/80 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-amber-900 dark:text-amber-200 border border-amber-300">
+                            Pairs Found: <span id="memoryPairsCount" class="text-base text-amber-700 dark:text-amber-400 font-extrabold">0 / 6</span>
+                        </div>
+                    </div>
+
+                    <!-- Memory Cards Grid (2x6 or 3x4 layout) -->
+                    <div id="memoryCardsContainer" class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4 min-h-[320px] p-2">
+                        <!-- Card elements generated dynamically -->
+                    </div>
+
+                    <!-- Victory Banner (Hidden initially) -->
+                    <div id="memoryVictoryBanner" class="hidden p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border-2 border-emerald-400 text-center space-y-2">
+                        <div class="text-3xl">🎉 🌺 🏆</div>
+                        <h5 class="text-lg sm:text-xl font-bold text-emerald-900 dark:text-emerald-200">Splendid memory work, Arthur!</h5>
+                        <p class="text-sm text-emerald-700 dark:text-emerald-300">You matched all garden symbols! You have earned +40 Brain Bloom points.</p>
+                        <button onclick="initMemoryGame()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition">
+                            Play Another Peaceful Round
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Daily Word Association & Mind Quiz (4 Cols) -->
+                <div class="lg:col-span-4 space-y-5">
+                    
+                    <!-- Quick Word Association Quiz -->
+                    <div class="contrast-card bg-white dark:bg-slate-900 rounded-3xl p-5 border-2 border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
+                            <span class="text-xs uppercase font-bold tracking-wider text-amber-600">Daily Brain Teaser</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-300 font-semibold">Gentle</span>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white" id="wordTeaserQuestion">
+                            Which of these words is most connected to "Springtime"?
+                        </h4>
+                        <div class="space-y-2 pt-1" id="wordTeaserOptions">
+                            <!-- Options injected here -->
+                        </div>
+                        <div id="wordTeaserFeedback" class="text-xs sm:text-sm font-semibold p-2.5 rounded-xl hidden"></div>
+                    </div>
+
+                    <!-- Gentle Sensory Breathing Guide -->
+                    <div class="contrast-card bg-gradient-to-br from-sage-50 to-emerald-100 dark:from-slate-900 dark:to-sage-950 rounded-3xl p-5 border-2 border-sage-200 dark:border-sage-800 shadow-sm text-center space-y-3">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-sage-500 text-white flex items-center justify-center text-xl shadow-md">
+                            <i class="fa-solid fa-wind"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white">1-Minute Mindful Calm</h4>
+                        <p class="contrast-subtext text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                            Take a slow, deep breath in through your nose... and a gentle, soothing breath out.
+                        </p>
+                        <button onclick="startCalmBreathing()" id="btnBreathing" class="w-full py-2.5 px-4 bg-sage-600 hover:bg-sage-700 text-white font-bold rounded-xl text-sm transition">
+                            Begin Gentle Breath
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="sectionCommunity" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200 dark:border-slate-800">
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white font-serif flex items-center gap-2">
+                        <i class="fa-solid fa-mug-saucer text-amber-600"></i>
+                        SilverBloom Social Circle & Clubs
+                    </h3>
+                    <p class="contrast-subtext text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+                        Friendly conversations, warm story exchanges, and welcoming virtual hobby tables.
+                    </p>
+                </div>
+
+                <button onclick="openNewStoryModal()" class="contrast-btn px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <span>Share a Story or Thought</span>
+                </button>
+            </div>
+
+            <!-- Virtual Interest Tables / Rooms -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="contrast-card p-4 rounded-2xl bg-amber-50/80 dark:bg-slate-900 border-2 border-amber-200 dark:border-amber-800 flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-amber-200 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 flex items-center justify-center text-xl">
+                        🌻
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Gardening & Balconies</h4>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">14 Active Members • Friendly</span>
+                    </div>
+                </div>
+
+                <div class="contrast-card p-4 rounded-2xl bg-emerald-50/80 dark:bg-slate-900 border-2 border-emerald-200 dark:border-emerald-800 flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-200 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200 flex items-center justify-center text-xl">
+                        📖
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Classic Books & Memoirs</h4>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">22 Active Members • Welcoming</span>
+                    </div>
+                </div>
+
+                <div class="contrast-card p-4 rounded-2xl bg-sky-50/80 dark:bg-slate-900 border-2 border-sky-200 dark:border-sky-800 flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-sky-200 dark:bg-sky-900/60 text-sky-800 dark:text-sky-200 flex items-center justify-center text-xl">
+                        🍲
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">Heirloom Family Recipes</h4>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">19 Active Members • Delicious</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Story Feed -->
+            <div id="communityStoryFeed" class="space-y-4">
+                <!-- Community posts loaded here -->
+            </div>
+        </section>
+
+        <section id="sectionCompanion" class="space-y-6 hidden">
+            <div class="contrast-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border-2 border-amber-200 dark:border-slate-800 shadow-md space-y-4">
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-400 to-sage-500 flex items-center justify-center text-slate-900 text-2xl shadow-md">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-serif">
+                                Sage — Your Patient Digital Companion
+                            </h3>
+                            <p class="contrast-subtext text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                Ask any question without hesitation. No jargon, just warm and clear explanations!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="inline-flex items-center gap-2 bg-sage-50 dark:bg-sage-950 px-3 py-1.5 rounded-xl border border-sage-300 dark:border-sage-800 text-xs font-semibold text-sage-800 dark:text-sage-300">
+                        <i class="fa-solid fa-volume-high text-emerald-600"></i>
+                        <span>Auto Audio Readout Enabled</span>
+                    </div>
+                </div>
+
+                <!-- Chat History Container -->
+                <div id="companionChatBox" class="h-80 sm:h-96 overflow-y-auto space-y-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                    <!-- Default Greeting Bubble -->
+                    <div class="flex items-start gap-3 max-w-3xl">
+                        <div class="w-10 h-10 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center font-bold text-sm flex-shrink-0 shadow">
+                            S
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-amber-200 dark:border-slate-800 shadow-sm text-slate-800 dark:text-slate-200 space-y-2">
+                            <p class="font-semibold text-amber-800 dark:text-amber-400 text-sm">Sage says:</p>
+                            <p class="text-sm sm:text-base leading-relaxed">
+                                Hello Arthur! It is so wonderful to spend time with you today. Please feel free to ask me anything — like how to send a photo to your family, what "The Cloud" means, or even for an interesting historic story from the 1960s!
+                            </p>
+                            <button onclick="speakText('Hello Arthur! It is so wonderful to spend time with you today. Please feel free to ask me anything.')" class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:underline pt-1">
+                                <i class="fa-solid fa-volume-high"></i> Listen to this greeting
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Prompt Buttons for Seniors -->
+                <div class="space-y-1.5">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Popular Gentle Questions:</span>
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1">
+                        <button onclick="sendQuickPrompt('Explain what Bluetooth is in simple everyday terms.')" class="px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-slate-800 hover:bg-amber-200 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold whitespace-nowrap transition border border-amber-300 dark:border-slate-700">
+                            📱 What is Bluetooth simply?
+                        </button>
+                        <button onclick="sendQuickPrompt('How do I know if an email or text message is a scam?')" class="px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-slate-800 hover:bg-amber-200 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold whitespace-nowrap transition border border-amber-300 dark:border-slate-700">
+                            🛡️ How to spot scam texts?
+                        </button>
+                        <button onclick="sendQuickPrompt('Tell me a short, uplifting true story from world history.')" class="px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-slate-800 hover:bg-amber-200 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold whitespace-nowrap transition border border-amber-300 dark:border-slate-700">
+                            📚 Uplifting history story
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Input Controls -->
+                <div class="flex items-center gap-2 pt-2">
+                    <input type="text" id="companionInput" placeholder="Type your question here in your own words..." class="flex-1 bg-slate-50 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-700 rounded-2xl px-4 py-3 text-base sm:text-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 transition">
+                    <button onclick="handleCompanionSubmit()" id="btnCompanionSend" class="contrast-btn px-6 py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-2xl text-base shadow-md transition flex items-center gap-2 flex-shrink-0">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span class="hidden sm:inline">Ask Sage</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="lessonModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modalLessonTitle">
+        <div class="contrast-card bg-white dark:bg-slate-900 rounded-3xl max-w-3xl w-full border-2 border-amber-300 dark:border-amber-700 shadow-2xl p-6 sm:p-8 space-y-6 my-auto">
+            
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div class="space-y-1">
+                    <span id="modalLessonCategory" class="text-xs uppercase font-extrabold tracking-wider px-3 py-1 rounded-full bg-sage-100 text-sage-800 dark:bg-sage-900 dark:text-sage-300">
+                        Digital Literacy
+                    </span>
+                    <h3 id="modalLessonTitle" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white font-serif pt-1">
+                        Lesson Title
+                    </h3>
+                </div>
+
+                <button onclick="closeLessonModal()" class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-lg flex items-center justify-center transition" aria-label="Close lesson window">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Audio Read Aloud Control Bar -->
+            <div class="bg-amber-50 dark:bg-slate-950 p-4 rounded-2xl border border-amber-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleModalLessonSpeech()" id="btnModalSpeak" class="w-12 h-12 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center text-xl shadow transition" aria-label="Play or pause voice audio">
+                        <i class="fa-solid fa-play" id="modalSpeakIcon"></i>
+                    </button>
+                    <div>
+                        <span class="block font-bold text-slate-900 dark:text-white text-sm">Read Lesson Out Loud</span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400" id="modalSpeakStatus">Press play to listen comfortably</span>
+                    </div>
+                </div>
+
+                <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                    <i class="fa-regular fa-clock text-amber-600"></i>
+                    <span id="modalLessonDuration">5 minutes</span>
+                </div>
+            </div>
+
+            <!-- Lesson Step-by-Step Content -->
+            <div id="modalLessonSteps" class="space-y-4 max-h-96 overflow-y-auto pr-2 text-base sm:text-lg text-slate-700 dark:text-slate-200 leading-relaxed">
+                <!-- Dynamically generated lesson body -->
+            </div>
+
+            <!-- Modal Footer Action -->
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-xs text-slate-500">Take your time. You can revisit this guide whenever you wish!</p>
+                <button onclick="completeCurrentLesson()" id="btnCompleteLesson" class="contrast-btn w-full sm:w-auto px-6 py-3 bg-sage-600 hover:bg-sage-700 text-white font-bold rounded-xl text-base shadow transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Mark as Completed (+25 Pts)</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="newStoryModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="newStoryModalTitle">
+        <div class="contrast-card bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full border-2 border-emerald-300 dark:border-emerald-700 shadow-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                <h3 id="newStoryModalTitle" class="text-xl font-bold text-slate-900 dark:text-white font-serif flex items-center gap-2">
+                    <i class="fa-solid fa-feather-pointed text-emerald-600"></i>
+                    Share with the Circle
+                </h3>
+                <button onclick="closeNewStoryModal()" class="text-slate-500 hover:text-slate-800 dark:hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Your Name</label>
+                    <input type="text" id="storyAuthorInput" value="Arthur P." class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-base text-slate-900 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Topic / Club</label>
+                    <select id="storyClubSelect" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-base text-slate-900 dark:text-white">
+                        <option value="🌻 Gardening & Balconies">🌻 Gardening & Balconies</option>
+                        <option value="📖 Classic Books & Memories">📖 Classic Books & Memories</option>
+                        <option value="🍲 Family Recipes">🍲 Family Recipes</option>
+                        <option value="💡 Friendly Everyday Advice">💡 Friendly Everyday Advice</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Your Heartfelt Note or Tip</label>
+                    <textarea id="storyTextInput" rows="4" placeholder="Share a lovely memory, a tomato-growing tip, or words of encouragement..." class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl p-3 text-base text-slate-900 dark:text-white placeholder-slate-400"></textarea>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeNewStoryModal()" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm">Cancel</button>
+                <button onclick="submitNewStory()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition">Post Note</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="seniorToast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 max-w-md bg-white dark:bg-slate-900 border-2 border-emerald-500 text-slate-900 dark:text-white p-4 rounded-2xl shadow-2xl flex items-center gap-3.5" role="status" aria-live="polite">
+        <div id="toastIconContainer" class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-xl flex-shrink-0">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="flex-1">
+            <div id="toastTitleText" class="font-bold text-sm">Great Job!</div>
+            <div id="toastDetailText" class="text-xs text-slate-600 dark:text-slate-300">Action completed successfully.</div>
+        </div>
+        <button onclick="hideSeniorToast()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <script>
+        // Global State & User Profile
+        let appState = {
+            fontScale: 'standard',
+            theme: 'cozy',
+            activeTab: 'learning',
+            brainPoints: 180,
+            completedLessonsCount: 4,
+            streakDays: 5,
+            activeLesson: null,
+            isSpeaking: false,
+            currentSpeechUtterance: null
+        };
+
+        // Rich Curated Elderly Learning Modules
+        const LESSON_DATABASE = [
+            {
+                id: 'scam-call-safety',
+                category: 'safety',
+                categoryLabel: 'Scam & Safety',
+                badgeColor: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300',
+                title: 'Spotting Scam Calls & Urgent Text Messages',
+                icon: 'fa-shield-halved',
+                duration: '4 mins read',
+                summary: 'Learn the "Pause, Breathe, Verify" rule to protect your savings and private details from trick callers.',
+                steps: [
+                    {
+                        stepNum: 'Rule 1',
+                        title: 'Real Banks Never Ask for Passwords Over Phone',
+                        content: 'If someone calls claiming to be from your bank, the tax office, or computer support demanding immediate money or gift cards, hang up immediately. Legitimate organizations will never pressure you.'
+                    },
+                    {
+                        stepNum: 'Rule 2',
+                        title: 'The Grandparent Scam Alert',
+                        content: 'Be cautious of frantic callers pretending to be a grandchild in trouble. Always hang up and dial your family member directly on their known phone number before sending any money.'
+                    },
+                    {
+                        stepNum: 'Rule 3',
+                        title: 'Take Your Time — There is Never a Real 5-Minute Emergency',
+                        content: 'Scammers rely on creating artificial panic. Take a slow sip of water, call a trusted friend or neighbor, and verify calmly.'
+                    }
+                ]
+            },
+            {
+                id: 'whatsapp-video-calling',
+                category: 'digital',
+                categoryLabel: 'Digital & Phones',
+                badgeColor: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300',
+                title: 'Video Calling Grandchildren with Ease',
+                icon: 'fa-video',
+                duration: '5 mins read',
+                summary: 'A friendly visual guide to opening video calls, switching camera angles, and sending delightful emojis.',
+                steps: [
+                    {
+                        stepNum: 'Step 1',
+                        title: 'Find the Green WhatsApp Icon',
+                        content: 'Tap the green WhatsApp speech bubble on your phone home screen. Find your loved one in your chat list.'
+                    },
+                    {
+                        stepNum: 'Step 2',
+                        title: 'Look for the Video Camera Icon at the Top Right',
+                        content: 'Look in the upper right corner for the icon shaped like a video camera. Tap it once. Your screen will ring until they answer!'
+                    },
+                    {
+                        stepNum: 'Step 3',
+                        title: 'Hold the Phone at Eye Level for the Best Smile',
+                        content: 'Prop your phone up against a book or mug on the kitchen table so your hands stay relaxed and your face is brightly lit.'
+                    }
+                ]
+            },
+            {
+                id: 'chair-yoga-mobility',
+                category: 'wellness',
+                categoryLabel: 'Health & Joy',
+                badgeColor: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
+                title: '5-Minute Gentle Chair Stretches for Mobility',
+                icon: 'fa-person-walking',
+                duration: '6 mins practice',
+                summary: 'Soothing seated stretches to loosen stiff shoulders, ease lower back tension, and boost circulation.',
+                steps: [
+                    {
+                        stepNum: 'Stretch 1',
+                        title: 'The Seated Cat-Cow Breath',
+                        content: 'Sit comfortably tall with feet flat on the floor. Inhale gently while rolling your shoulders back and looking up softly. Exhale and gently round your back.'
+                    },
+                    {
+                        stepNum: 'Stretch 2',
+                        title: 'Gentle Shoulder Rolls',
+                        content: 'Slowly roll your shoulders backward 5 times, imagining letting go of all the day\'s weight. Then roll forward 5 times.'
+                    },
+                    {
+                        stepNum: 'Stretch 3',
+                        title: 'Ankle Circles for Circulation',
+                        content: 'Lift your right foot slightly off the floor and circle your ankle smoothly clockwise 10 times, then counter-clockwise. Switch to your left foot.'
+                    }
+                ]
+            },
+            {
+                id: 'phone-photos-organizing',
+                category: 'digital',
+                categoryLabel: 'Digital & Phones',
+                badgeColor: 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300',
+                title: 'Organizing & Favoriting Photos of Family',
+                icon: 'fa-images',
+                duration: '4 mins read',
+                summary: 'How to use the little heart icon so you can show pictures of your grandchildren without endless scrolling.',
+                steps: [
+                    {
+                        stepNum: 'Step 1',
+                        title: 'Tap the Little Heart on Your Best Photos',
+                        content: 'When you are viewing any photo you cherish, look at the bottom toolbar for a small heart or star icon. Tap it once!'
+                    },
+                    {
+                        stepNum: 'Step 2',
+                        title: 'Find Your "Favorites" Album Instantly',
+                        content: 'Now, go back to Albums and open "Favorites". Only your treasured pictures will be gathered there, ready to share with friends.'
+                    }
+                ]
+            },
+            {
+                id: 'balcony-container-herbs',
+                category: 'wellness',
+                categoryLabel: 'Health & Joy',
+                badgeColor: 'bg-sage-100 text-sage-800 dark:bg-sage-950 dark:text-sage-300',
+                title: 'Growing Fragrant Kitchen Herbs on a Windowsill',
+                icon: 'fa-seedling',
+                duration: '5 mins read',
+                summary: 'How to easily grow basil, mint, and rosemary in small pots for fresh aroma and wonderful cooking.',
+                steps: [
+                    {
+                        stepNum: 'Tip 1',
+                        title: 'Choose a Sunny Windowsill',
+                        content: 'Herbs love morning sunlight. Place your small pot where it receives 4 to 6 hours of bright light every day.'
+                    },
+                    {
+                        stepNum: 'Tip 2',
+                        title: 'The Finger Moisture Test',
+                        content: 'Before watering, gently press your finger half an inch into the potting soil. If it feels dry, give it a gentle cup of water.'
+                    }
+                ]
+            },
+            {
+                id: 'password-memory-tricks',
+                category: 'safety',
+                categoryLabel: 'Scam & Safety',
+                badgeColor: 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300',
+                title: 'Passphrases: Memorable, Super Strong Passwords',
+                icon: 'fa-key',
+                duration: '4 mins read',
+                summary: 'Forget confusing strings of random letters! Learn how simple favorite song lyrics or quotes create impenetrable security.',
+                steps: [
+                    {
+                        stepNum: 'Idea 1',
+                        title: 'Use a Familiar 4-Word Story',
+                        content: 'Instead of "P@ssw0rd1", choose something like "BlueRobinSingsInMay!" It is easy for you to picture in your mind, yet nearly impossible for computers to guess.'
+                    },
+                    {
+                        stepNum: 'Idea 2',
+                        title: 'Keep a Private Physical Little Black Book',
+                        content: 'Cyber experts agree: keeping a handwritten notebook locked safely inside your home desk is much safer than writing passwords on sticky notes.'
+                    }
+                ]
+            }
+        ];
+
+        // Memory Match Icons & Data
+        const MEMORY_SYMBOLS = [
+            { icon: '🌻', name: 'Sunflower' },
+            { icon: '🍎', name: 'Apple' },
+            { icon: '☕', name: 'Warm Tea' },
+            { icon: '🐦', name: 'Songbird' },
+            { icon: '🌸', name: 'Cherry Blossom' },
+            { icon: '📖', name: 'Good Book' }
+        ];
+
+        let memoryDeck = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let isBoardLocked = false;
+
+        // Daily Word Teasers Pool
+        const WORD_TEASERS = [
+            {
+                question: 'Which word is most traditionally associated with "Springtime"?',
+                options: ['Snowflakes', 'Blooming Flowers', 'Autumn Leaves', 'Frost'],
+                correctIndex: 1,
+                explanation: 'Spring brings new life and blooming blossoms to gardens everywhere!'
+            },
+            {
+                question: 'Which of these is a famous wholesome herb commonly used in calming tea?',
+                options: ['Chamomile', 'Black Pepper', 'Chili Flakes', 'Wasabi'],
+                correctIndex: 0,
+                explanation: 'Chamomile flowers have been brewed for centuries to encourage restful sleep and relaxation.'
+            }
+        ];
+        let currentTeaserIdx = 0;
+
+        // Sample Community Stories
+        let communityStories = [
+            {
+                author: 'Eleanor Vance',
+                tag: '🌻 Gardening Club',
+                time: '2 hours ago',
+                content: 'My sweet peas have finally climbed the trellis on the back porch! Reminds me of my mother’s garden in Yorkshire. Sending everyone a bright smile today.',
+                likes: 8
+            },
+            {
+                author: 'Harold Mitchell',
+                tag: '💡 Friendly Everyday Advice',
+                time: 'Yesterday',
+                content: 'Tip for reading newspapers on a tablet: turn the brightness down a small notch in the evening. It makes your eyes much happier before bedtime!',
+                likes: 12
+            }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderLessons('all');
+            initMemoryGame();
+            renderWordTeaser();
+            renderCommunityStories();
+            updateDateGreeting();
+        });
+
+        function updateDateGreeting() {
+            const dateDisplay = document.getElementById('currentDateDisplay');
+            const now = new Date();
+            const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+            dateDisplay.textContent = `Today is ${now.toLocaleDateString('en-US', options)}`;
+        }
+
+        // Senior Font Scaling Logic
+        function setFontScale(scale) {
+            appState.fontScale = scale;
+            const html = document.documentElement;
+            html.classList.remove('font-size-standard', 'font-size-large', 'font-size-xlarge');
+
+            const btnStd = document.getElementById('btnFontStandard');
+            const btnLrg = document.getElementById('btnFontLarge');
+            const btnXLrg = document.getElementById('btnFontXLarge');
+
+            [btnStd, btnLrg, btnXLrg].forEach(b => {
+                b.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition hover:bg-amber-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100";
+            });
+
+            if (scale === 'standard') {
+                html.classList.add('font-size-standard');
+                btnStd.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950";
+                showSeniorToast("Text size set to Regular", "fa-text-height");
+            } else if (scale === 'large') {
+                html.classList.add('font-size-large');
+                btnLrg.className = "px-3 py-1.5 rounded-lg text-sm font-bold transition bg-amber-500 text-slate-950";
+                showSeniorToast("Text enlarged for comfortable reading", "fa-magnifying-glass-plus");
+            } else if (scale === 'xlarge') {
+                html.classList.add('font-size-xlarge');
+                btnXLrg.className = "px-3 py-1.5 rounded-lg text-base font-extrabold transition bg-amber-500 text-slate-950";
+                showSeniorToast("Extra Large font activated", "fa-eye");
+            }
+        }
+
+        // Theme & Contrast Switcher
+        function setTheme(theme) {
+            appState.theme = theme;
+            const body = document.body;
+            const btnCozy = document.getElementById('btnThemeCozy');
+            const btnContrast = document.getElementById('btnThemeContrast');
+
+            body.classList.remove('theme-cozy', 'theme-highcontrast');
+
+            if (theme === 'cozy') {
+                body.classList.add('theme-cozy');
+                btnCozy.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center gap-1.5";
+                btnContrast.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition hover:bg-amber-200 text-slate-800 flex items-center gap-1.5";
+                showSeniorToast("Warm Paper reading theme enabled", "fa-mug-hot");
+            } else {
+                body.classList.add('theme-highcontrast');
+                btnContrast.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center gap-1.5";
+                btnCozy.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition hover:bg-amber-200 text-slate-100 flex items-center gap-1.5";
+                showSeniorToast("High Contrast Black & Yellow theme active", "fa-circle-half-stroke");
+            }
+        }
+
+        // Main Tab Switcher
+        function switchActiveTab(tab) {
+            appState.activeTab = tab;
+            
+            // Hide all tab sections
+            document.getElementById('sectionLearning').classList.add('hidden');
+            document.getElementById('sectionCognitive').classList.add('hidden');
+            document.getElementById('sectionCommunity').classList.add('hidden');
+            document.getElementById('sectionCompanion').classList.add('hidden');
+
+            // Reset navigation tab button styles
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(btn => {
+                btn.className = "nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 flex items-center gap-2";
+            });
+
+            if (tab === 'learning') {
+                document.getElementById('sectionLearning').classList.remove('hidden');
+                document.getElementById('tabBtnLearning').className = "nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-sage-600 text-white shadow-md flex items-center gap-2";
+            } else if (tab === 'cognitive') {
+                document.getElementById('sectionCognitive').classList.remove('hidden');
+                document.getElementById('tabBtnCognitive').className = "nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-amber-600 text-white shadow-md flex items-center gap-2";
+            } else if (tab === 'community') {
+                document.getElementById('sectionCommunity').classList.remove('hidden');
+                document.getElementById('tabBtnCommunity').className = "nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-emerald-600 text-white shadow-md flex items-center gap-2";
+            } else if (tab === 'companion') {
+                document.getElementById('sectionCompanion').classList.remove('hidden');
+                document.getElementById('tabBtnCompanion').className = "nav-tab px-4 py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-amber-500 text-slate-950 shadow-md flex items-center gap-2";
+            }
+        }
+
+        function renderLessons(filter = 'all') {
+            const container = document.getElementById('lessonsGrid');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? LESSON_DATABASE 
+                : LESSON_DATABASE.filter(l => l.category === filter);
+
+            filtered.forEach(lesson => {
+                const card = document.createElement('article');
+                card.className = "contrast-card bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between space-y-4";
+                
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs uppercase font-extrabold tracking-wider px-3 py-1 rounded-full ${lesson.badgeColor}">
+                                ${lesson.categoryLabel}
+                            </span>
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                                <i class="fa-regular fa-clock"></i> ${lesson.duration}
+                            </span>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 flex items-center justify-center text-xl flex-shrink-0">
+                                <i class="fa-solid ${lesson.icon}"></i>
+                            </div>
+                            <h4 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-snug">
+                                ${lesson.title}
+                            </h4>
+                        </div>
+
+                        <p class="contrast-subtext text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                            ${lesson.summary}
+                        </p>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+                        <button onclick="openLessonModal('${lesson.id}')" class="contrast-btn px-4 py-2.5 bg-sage-600 hover:bg-sage-700 text-white font-bold rounded-xl text-sm transition flex items-center gap-2">
+                            <span>Open Lesson</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        <button onclick="speakText('${lesson.title}. ${lesson.summary}')" class="p-2.5 text-slate-500 hover:text-emerald-700 dark:hover:text-emerald-400 text-lg rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Listen to summary">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterLessons(category) {
+            const pills = document.querySelectorAll('.filter-pill');
+            pills.forEach(p => {
+                p.className = "filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200";
+            });
+
+            if (category === 'all') document.getElementById('btnFilterAll').className = "filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-sage-600 text-white shadow";
+            if (category === 'digital') document.getElementById('btnFilterDigital').className = "filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-sage-600 text-white shadow";
+            if (category === 'safety') document.getElementById('btnFilterSafety').className = "filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-sage-600 text-white shadow";
+            if (category === 'wellness') document.getElementById('btnFilterWellness').className = "filter-pill px-4 py-2 rounded-xl text-sm font-bold transition bg-sage-600 text-white shadow";
+
+            renderLessons(category);
+        }
+
+        function openLessonModal(lessonId) {
+            const lesson = LESSON_DATABASE.find(l => l.id === lessonId);
+            if (!lesson) return;
+
+            appState.activeLesson = lesson;
+            document.getElementById('modalLessonCategory').textContent = lesson.categoryLabel;
+            document.getElementById('modalLessonTitle').textContent = lesson.title;
+            document.getElementById('modalLessonDuration').textContent = lesson.duration;
+
+            const stepsContainer = document.getElementById('modalLessonSteps');
+            stepsContainer.innerHTML = '';
+
+            lesson.steps.forEach(s => {
+                const stepBox = document.createElement('div');
+                stepBox.className = "bg-amber-50/70 dark:bg-slate-950 p-4 sm:p-5 rounded-2xl border border-amber-200 dark:border-slate-800 space-y-1.5";
+                stepBox.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 text-xs font-black flex items-center justify-center">${s.stepNum}</span>
+                        <h5 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg">${s.title}</h5>
+                    </div>
+                    <p class="text-slate-700 dark:text-slate-300 text-base leading-relaxed pl-9">${s.content}</p>
+                `;
+                stepsContainer.appendChild(stepBox);
+            });
+
+            document.getElementById('lessonModal').classList.remove('hidden');
+        }
+
+        function closeLessonModal() {
+            stopSpeech();
+            document.getElementById('lessonModal').classList.add('hidden');
+        }
+
+        function completeCurrentLesson() {
+            appState.brainPoints += 25;
+            appState.completedLessonsCount += 1;
+            document.getElementById('statBrainScore').textContent = appState.brainPoints;
+            document.getElementById('statCompletedLessons').textContent = appState.completedLessonsCount;
+
+            closeLessonModal();
+            showSeniorToast("Lesson Completed! +25 Brain Bloom Points", "fa-trophy");
+        }
+
+        function initMemoryGame() {
+            const container = document.getElementById('memoryCardsContainer');
+            container.innerHTML = '';
+            flippedCards = [];
+            matchedPairs = 0;
+            isBoardLocked = false;
+            document.getElementById('memoryVictoryBanner').classList.add('hidden');
+            document.getElementById('memoryPairsCount').textContent = `0 / ${MEMORY_SYMBOLS.length}`;
+
+            // Create pairs and shuffle
+            const pairList = [...MEMORY_SYMBOLS, ...MEMORY_SYMBOLS];
+            memoryDeck = pairList.sort(() => Math.random() - 0.5);
+
+            memoryDeck.forEach((item, index) => {
+                const cardWrap = document.createElement('div');
+                cardWrap.className = "perspective-1000 h-24 sm:h-28 cursor-pointer select-none";
+                cardWrap.onclick = () => handleCardClick(index, cardWrap);
+
+                cardWrap.innerHTML = `
+                    <div class="card-inner" id="cardInner_${index}">
+                        <div class="card-front bg-gradient-to-br from-amber-300 to-warmAmber-400 dark:from-slate-800 dark:to-slate-700 border-2 border-amber-400 dark:border-slate-600 flex items-center justify-center text-slate-900 dark:text-amber-200 text-2xl sm:text-3xl font-bold shadow-md rounded-2xl">
+                            <i class="fa-solid fa-leaf text-amber-800/60 dark:text-amber-300/60"></i>
+                        </div>
+                        <div class="card-back bg-white dark:bg-slate-900 border-2 border-emerald-400 flex flex-col items-center justify-center p-2 rounded-2xl shadow-inner">
+                            <span class="text-3xl sm:text-4xl">${item.icon}</span>
+                            <span class="text-[11px] font-bold text-slate-600 dark:text-slate-300 mt-1">${item.name}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(cardWrap);
+            });
+        }
+
+        function handleCardClick(index, cardEl) {
+            if (isBoardLocked) return;
+            const inner = document.getElementById(`cardInner_${index}`);
+            if (inner.classList.contains('flipped')) return;
+
+            // Flip current card
+            inner.classList.add('flipped');
+            flippedCards.push({ index, item: memoryDeck[index], element: inner });
+
+            if (flippedCards.length === 2) {
+                isBoardLocked = true;
+                const [cardOne, cardTwo] = flippedCards;
+
+                if (cardOne.item.name === cardTwo.item.name) {
+                    // Match found!
+                    matchedPairs++;
+                    document.getElementById('memoryPairsCount').textContent = `${matchedPairs} / ${MEMORY_SYMBOLS.length}`;
+                    flippedCards = [];
+                    isBoardLocked = false;
+
+                    if (matchedPairs === MEMORY_SYMBOLS.length) {
+                        appState.brainPoints += 40;
+                        document.getElementById('statBrainScore').textContent = appState.brainPoints;
+                        document.getElementById('memoryVictoryBanner').classList.remove('hidden');
+                        showSeniorToast("Congratulations! Garden Memory Complete!", "fa-award");
+                    }
+                } else {
+                    // No match, turn back after short pause
+                    setTimeout(() => {
+                        cardOne.element.classList.remove('flipped');
+                        cardTwo.element.classList.remove('flipped');
+                        flippedCards = [];
+                        isBoardLocked = false;
+                    }, 1000);
+                }
+            }
+        }
+
+        function renderWordTeaser() {
+            const teaser = WORD_TEASERS[currentTeaserIdx];
+            document.getElementById('wordTeaserQuestion').textContent = teaser.question;
+            const optionsContainer = document.getElementById('wordTeaserOptions');
+            optionsContainer.innerHTML = '';
+            document.getElementById('wordTeaserFeedback').classList.add('hidden');
+
+            teaser.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-amber-400 font-semibold text-sm sm:text-base transition text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 flex items-center justify-between";
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-400 text-xs"></i>`;
+                btn.onclick = () => handleTeaserAnswer(idx, teaser);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleTeaserAnswer(chosenIdx, teaser) {
+            const feedback = document.getElementById('wordTeaserFeedback');
+            feedback.classList.remove('hidden');
+
+            if (chosenIdx === teaser.correctIndex) {
+                feedback.className = "text-xs sm:text-sm font-semibold p-3 rounded-xl bg-emerald-100 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200 border border-emerald-300";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Wonderful! That is correct. ${teaser.explanation}`;
+                appState.brainPoints += 15;
+                document.getElementById('statBrainScore').textContent = appState.brainPoints;
+            } else {
+                feedback.className = "text-xs sm:text-sm font-semibold p-3 rounded-xl bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200 border border-amber-300";
+                feedback.innerHTML = `<i class="fa-solid fa-lightbulb text-amber-600 mr-1"></i> Close guess! Try looking for the seasonal match.`;
+            }
+        }
+
+        function startCalmBreathing() {
+            const btn = document.getElementById('btnBreathing');
+            let phase = 0;
+            const phases = [
+                'Inhale slowly (1, 2, 3)...',
+                'Hold gently (1, 2)...',
+                'Exhale softly (1, 2, 3, 4)...',
+                'Peaceful and relaxed 🌿'
+            ];
+
+            btn.disabled = true;
+            const interval = setInterval(() => {
+                if (phase < phases.length) {
+                    btn.textContent = phases[phase];
+                    phase++;
+                } else {
+                    clearInterval(interval);
+                    btn.disabled = false;
+                    btn.textContent = "Take Another Gentle Breath";
+                    showSeniorToast("Mind calmed and refreshed", "fa-heart");
+                }
+            }, 2000);
+        }
+
+        function renderCommunityStories() {
+            const container = document.getElementById('communityStoryFeed');
+            container.innerHTML = '';
+
+            communityStories.forEach((story, idx) => {
+                const post = document.createElement('div');
+                post.className = "contrast-card bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-6 shadow-sm space-y-3";
+                post.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-500 text-white font-bold flex items-center justify-center text-sm">
+                                ${story.author.charAt(0)}
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-slate-900 dark:text-white text-base">${story.author}</h5>
+                                <span class="text-xs text-slate-500 dark:text-slate-400">${story.tag} • ${story.time}</span>
+                            </div>
+                        </div>
+                        <button onclick="likeCommunityStory(${idx})" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 text-xs font-bold border border-rose-200 dark:border-rose-800 hover:bg-rose-100 transition">
+                            <i class="fa-solid fa-heart"></i>
+                            <span>${story.likes}</span>
+                        </button>
+                    </div>
+                    <p class="contrast-subtext text-base text-slate-700 dark:text-slate-200 leading-relaxed">${story.content}</p>
+                    <div class="pt-2 flex items-center gap-3">
+                        <button onclick="speakText('${story.author} shared: ${story.content}')" class="text-xs font-semibold text-sage-600 dark:text-sage-400 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-volume-high"></i> Listen to story
+                        </button>
+                    </div>
+                `;
+                container.appendChild(post);
+            });
+        }
+
+        function likeCommunityStory(idx) {
+            communityStories[idx].likes += 1;
+            renderCommunityStories();
+            showSeniorToast("Sent warm appreciation!", "fa-heart");
+        }
+
+        function openNewStoryModal() {
+            document.getElementById('newStoryModal').classList.remove('hidden');
+        }
+
+        function closeNewStoryModal() {
+            document.getElementById('newStoryModal').classList.add('hidden');
+        }
+
+        function submitNewStory() {
+            const author = document.getElementById('storyAuthorInput').value.trim() || 'Arthur P.';
+            const club = document.getElementById('storyClubSelect').value;
+            const text = document.getElementById('storyTextInput').value.trim();
+
+            if (!text) {
+                showSeniorToast("Please write a few words to share", "fa-circle-exclamation");
+                return;
+            }
+
+            communityStories.unshift({
+                author: author,
+                tag: club,
+                time: 'Just now',
+                content: text,
+                likes: 1
+            });
+
+            document.getElementById('storyTextInput').value = '';
+            closeNewStoryModal();
+            renderCommunityStories();
+            showSeniorToast("Your lovely note has been shared!", "fa-feather-pointed");
+        }
+
+        async function handleCompanionSubmit() {
+            const input = document.getElementById('companionInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            input.value = '';
+            appendCompanionChat('user', question);
+
+            const sendBtn = document.getElementById('btnCompanionSend');
+            sendBtn.disabled = true;
+
+            const chatBox = document.getElementById('companionChatBox');
+            const thinkingEl = document.createElement('div');
+            thinkingEl.id = 'sageThinkingBubble';
+            thinkingEl.className = "flex items-start gap-3 max-w-2xl";
+            thinkingEl.innerHTML = `
+                <div class="w-10 h-10 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center font-bold text-sm flex-shrink-0 shadow">
+                    S
+                </div>
+                <div class="bg-amber-50 dark:bg-slate-900 p-3.5 rounded-2xl border border-amber-300 text-slate-600 dark:text-slate-300 text-sm italic flex items-center gap-2">
+                    <i class="fa-solid fa-circle-notch fa-spin text-amber-600"></i>
+                    Sage is thinking calmly of the best answer for you...
+                </div>
+            `;
+            chatBox.appendChild(thinkingEl);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            const prompt = `You are Sage, a warm, reassuring, and patient digital companion for an elderly person named Arthur.
+Explain concepts in gentle, respectful, crystal-clear everyday analogies without technical jargon.
+Arthur asks: "${question}".
+Provide a concise, loving 2-to-3 sentence explanation followed by one practical tip.`;
+
+            try {
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }]
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                removeSageThinking();
+                if (aiReply) {
+                    appendCompanionChat('sage', aiReply);
+                    speakText(aiReply);
+                } else {
+                    throw new Error("No response from AI model");
+                }
+            } catch (err) {
+                console.warn("Using offline senior knowledge base:", err);
+                removeSageThinking();
+                const fallbackReply = generateFallbackSeniorAnswer(question);
+                appendCompanionChat('sage', fallbackReply);
+                speakText(fallbackReply);
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+
+        function generateFallbackSeniorAnswer(q) {
+            const lower = q.toLowerCase();
+            if (lower.includes('bluetooth')) {
+                return "Think of Bluetooth like an invisible short piece of string that links two devices together, such as your phone and a small speaker. It only reaches across the living room, and it lets them whisper music to each other without any messy wires!";
+            } else if (lower.includes('scam') || lower.includes('safe') || lower.includes('text')) {
+                return "The golden rule is: whenever a message creates urgency or asks for money, simply put the phone down. A legitimate bank or family member will never mind waiting while you phone them back calmly on their verified number.";
+            } else if (lower.includes('history') || lower.includes('story')) {
+                return "In 1969, during the Apollo 11 moon landing, people gathered around small television sets in living rooms all over the globe, cheering together as one big human family. It reminds us of how much kindness and wonder we share!";
+            } else {
+                return "That is a wonderful question! Take things step by step, and remember that technology is only here to serve you at your own pace. You are doing a fantastic job learning!";
+            }
+        }
+
+        function removeSageThinking() {
+            const el = document.getElementById('sageThinkingBubble');
+            if (el) el.remove();
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('companionInput').value = promptText;
+            handleCompanionSubmit();
+        }
+
+        function appendCompanionChat(sender, text) {
+            const box = document.getElementById('companionChatBox');
+            const msg = document.createElement('div');
+
+            if (sender === 'user') {
+                msg.className = "flex items-start justify-end gap-3 max-w-3xl ml-auto";
+                msg.innerHTML = `
+                    <div class="bg-sage-600 text-white p-4 rounded-2xl shadow-sm text-sm sm:text-base max-w-lg">
+                        <p class="font-semibold text-xs text-sage-200 mb-1">You asked:</p>
+                        <p>${text}</p>
+                    </div>
+                `;
+            } else {
+                msg.className = "flex items-start gap-3 max-w-3xl";
+                msg.innerHTML = `
+                    <div class="w-10 h-10 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center font-bold text-sm flex-shrink-0 shadow">
+                        S
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-amber-200 dark:border-slate-800 shadow-sm text-slate-800 dark:text-slate-200 space-y-2 max-w-xl">
+                        <p class="font-semibold text-amber-800 dark:text-amber-400 text-sm">Sage says:</p>
+                        <p class="text-sm sm:text-base leading-relaxed">${text}</p>
+                        <button onclick="speakText('${text.replace(/'/g, "\\'")}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:underline pt-1">
+                            <i class="fa-solid fa-volume-high"></i> Listen again
+                        </button>
+                    </div>
+                `;
+            }
+            box.appendChild(msg);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) {
+                showSeniorToast("Audio voice not supported in this browser", "fa-volume-xmark");
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9; // Slightly slower, calm cadence for seniors
+            utterance.pitch = 1.0;
+            
+            // Try to pick a natural friendly English voice
+            const voices = window.speechSynthesis.getVoices();
+            const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha')));
+            if (preferred) utterance.voice = preferred;
+
+            utterance.onstart = () => {
+                appState.isSpeaking = true;
+                updateSpeakerButtonState(true);
+            };
+
+            utterance.onend = () => {
+                appState.isSpeaking = false;
+                updateSpeakerButtonState(false);
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function stopSpeech() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            appState.isSpeaking = false;
+            updateSpeakerButtonState(false);
+        }
+
+        function toggleGlobalSpeechReader() {
+            if (appState.isSpeaking) {
+                stopSpeech();
+                showSeniorToast("Voice readout paused", "fa-pause");
+            } else {
+                const summary = "Welcome to SilverBloom Academy. Here you can read comfortable lessons on digital phone skills, scam prevention, enjoy our garden memory game, or chat with your friend Sage.";
+                speakText(summary);
+                showSeniorToast("Reading page introduction...", "fa-volume-high");
+            }
+        }
+
+        function toggleModalLessonSpeech() {
+            if (appState.isSpeaking) {
+                stopSpeech();
+                document.getElementById('modalSpeakIcon').className = "fa-solid fa-play";
+                document.getElementById('modalSpeakStatus').textContent = "Press play to listen comfortably";
+            } else if (appState.activeLesson) {
+                const fullLessonText = `${appState.activeLesson.title}. ${appState.activeLesson.steps.map(s => `${s.stepNum}: ${s.title}. ${s.content}`).join(' ')}`;
+                speakText(fullLessonText);
+                document.getElementById('modalSpeakIcon').className = "fa-solid fa-pause";
+                document.getElementById('modalSpeakStatus').textContent = "Voice is reading out loud...";
+            }
+        }
+
+        function updateSpeakerButtonState(speaking) {
+            const icon = document.getElementById('globalSpeakerIcon');
+            const text = document.getElementById('globalSpeakerText');
+            if (icon && text) {
+                if (speaking) {
+                    icon.className = "fa-solid fa-pause text-sm";
+                    text.textContent = "Pause Voice";
+                } else {
+                    icon.className = "fa-solid fa-volume-high text-sm";
+                    text.textContent = "Read Out Loud";
+                }
+            }
+        }
+
+        let toastTimer = null;
+        function showSeniorToast(title, iconClass = 'fa-circle-check', detail = 'Action completed comfortably') {
+            const toast = document.getElementById('seniorToast');
+            document.getElementById('toastTitleText').textContent = title;
+            document.getElementById('toastDetailText').textContent = detail;
+            document.getElementById('toastIconContainer').innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(hideSeniorToast, 4000);
+        }
+
+        function hideSeniorToast() {
+            const toast = document.getElementById('seniorToast');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-24', 'opacity-0');
+        }
+    </script>
+</body>
+</html>
